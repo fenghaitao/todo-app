@@ -1,6 +1,22 @@
 const todoInput = document.getElementById('todo-input');
 const addBtn = document.getElementById('add-btn');
 const todoList = document.getElementById('todo-list');
+const themeToggle = document.getElementById('theme-toggle');
+
+// Theme toggle with localStorage persistence
+function applyTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', theme);
+}
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+applyTheme(savedTheme);
+
+themeToggle.addEventListener('click', function() {
+    const current = document.body.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+});
 
 addBtn.addEventListener('click', addTodo);
 todoInput.addEventListener('keypress', function(e) {
